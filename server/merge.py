@@ -65,8 +65,6 @@ def process_templates_from_folders(template_folder, excel_folder, output_format,
                     else:
                         zipf.writestr(f"{file_name}.docx", docx_stream.read())
 
-    print("Documents processed and archived successfully for each template.")
-
 # Argument parsing
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Generate documents based on templates and Excel data.")

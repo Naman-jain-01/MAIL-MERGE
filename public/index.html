@@ -86,50 +86,49 @@
     feedbackArea.innerHTML = 'Processing your documents... Please wait.';
     feedbackArea.style.display = 'block';
 
-    // Start the fetch request
-    fetch(this.action, {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => {
-            if (!response.ok) {
-                // If the response is not okay (e.g., 400 or 500 error), raise an error
-                throw new Error(`HTTP Error ${response.status}: ${response.statusText}`);
-            }
-            return response.json(); // Parse the JSON response
-        })
-        .then(data => {
-          function formatFilenameFromUrl(url) {
-    // Extract the filename from the URL using regex or simple string methods
+    // Assume feedbackArea is already defined elsewhere in your script
+feedbackArea.innerHTML = 'Processing your documents... Please wait.';
+feedbackArea.style.display = 'block';
+
+function formatFilenameFromUrl(url) {
+    // Extract the filename from the URL
     const fileName = url.substring(url.lastIndexOf('/') + 1);
-    // Optionally, remove any prefixes or timestamps from the filename
-    const start = fileName.indexOf('-') + 1;
-    const end = fileName.lastIndexOf('.');
-    // Replace underscores with spaces and capitalize the text if necessary
-    return fileName.substring(start, end).replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    // Optional: Remove prefixes or timestamps, assuming they're delimited by '-'
+    const cleanName = fileName.substring(fileName.indexOf('-') + 1);
+    // Replace underscores with spaces and capitalize each word
+    return cleanName.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
 }
 
-            // If the server provides a URL, offer a download link to the user
-            if (Array.isArray(data) && data.length > 0) {
-    // Generate a list of download links with formatted names
-    var links = data.map(url => {
-        // Extract and format the filename
-        const displayName = formatFilenameFromUrl(url);
-        // Return the HTML string for each link
-        return `<li><a href="${url}" download>${displayName}</a></li>`;
-    }).join('');
-    // Display the links
-    feedbackArea.innerHTML = `<h3>Download Processed Documents:</h3><ul>${links}</ul>`;
-} else {
-    // Show a message if no documents were found
-    feedbackArea.textContent = 'No documents found or processing failed.';
-}
-        })
-        .catch(error => {
-            // Show a detailed error message if processing fails
-            console.error('Error:', error);
-            feedbackArea.textContent = `Error: Failed to process files (${error.message})`;
-        });
+// Start the fetch request
+fetch(this.action, {
+    method: 'POST',
+    body: formData
+})
+    .then(response => {
+        if (!response.ok) {
+            // If the response is not okay, throw an error
+            throw new Error(`HTTP Error ${response.status}: ${response.statusText}`);
+        }
+        return response.json(); // Parse the JSON response
+    })
+    .then(data => {
+        // Generate and display download links if data is returned
+        if (Array.isArray(data) && data.length > 0) {
+            const links = data.map(url => {
+                const displayName = formatFilenameFromUrl(url);  // Format the filename
+                return `<li><a href="${url}" target="_blank" download="${displayName}">${displayName}</a></li>`;  // Include the download attribute and set target to "_blank"
+            }).join('');
+            feedbackArea.innerHTML = `<h3>Download Processed Documents:</h3><ul>${links}</ul>`;
+        } else {
+            feedbackArea.textContent = 'No documents found or processing failed.';
+        }
+    })
+    .catch(error => {
+        // Handle errors from the fetch operation
+        console.error('Error:', error);
+        feedbackArea.textContent = `Error: Failed to process files (${error.message})`;
+    });
+
 };
 
 
