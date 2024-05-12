@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <head>
+<title>EASY MERGE</title>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+      <header class="container">
+        <a href="#hero" class="logo clr-transition">Easy Merge</a>
+        <nav class="navbar">
+          <ul class="nav-items">
+            <li class="nav-item"><a href="#hero" class="nav-link clr-transition">Home</a></li>
+            <li class="nav-item"><a href="#how-to-use" class="nav-link clr-transition">How to use</a></li>
+            <li class="nav-item"><a href="#about" class="nav-link clr-transition">About</a></li>
+            <li class="nav-item"><a href="#contact" class="nav-link clr-transition">Contact</a></li>
+          </ul>
+          <div class="social-links">
+            <ul>
+              <li><i class='bx bxl-instagram nav-icon clr-transition'></i></li>
+              <li><i class='bx bxl-twitter nav-icon clr-transition'></i></li>
+              <li><i class='bx bxl-facebook nav-icon clr-transition'></i></li>
+            </ul>
+          </div>
+        </nav>
+
+        <div class="menu-togglers">
+          <i class="bx bx-menu menu-toggle clr-transition"></i>
+        </div>
+      </header>
+      <main id="hero" class="main">
+        <section class="section section-one">
+        
+          <div class="container hook-container">
+            <h1 class="hook-title clr-transition">Easy-Merge tool for Smart people</h1>
+            <h2 class="hook-sub_title clr-transition">One Click Away ! Merge Now!</h2>
+            <div class="hero-btns-container">
+            </div>
+          </div>
+          <section id="mail-merge-tool" class="section container">
+            <h2>Mail Merge Tool</h2>
+            <p>Upload DOCX templates and an Excel file to generate merged documents.</p>
+            <form id="file-upload-form" method="post" action="/process-merge" enctype="multipart/form-data">
+                <div class="file-upload-container">
+                    <label for="docx-files">Upload DOCX Files (up to 10):</label>
+                    <input type="file" id="docx-files" name="docx-files" multiple accept=".docx">
+                    <small>Accepted formats: DOCX</small>
+                </div>
+                <div class="file-upload-container">
+                    <label for="excel-file">Upload Excel File (1 file max):</label>
+                    <input type="file" id="excel-file" name="excel-file" accept=".xlsx, .xls">
+                    <small>Accepted formats: XLSX, XLS</small>
+                </div>
+                <div class="output-format-container">
+                    <label for="output-format">Select Output Format:</label>
+                    <select id="output-format" name="output-format">
+                        <option value="pdf">PDF</option>
+                        <option value="docx">DOCX</option>
+                    </select>
+                </div>
+                <button type="submit">Merge and Download</button>
+            </form>
+            <div style="display: flex;" id="feedback-area"></div>
+        </section>
+
+
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('beforeunload', function(event) {
+            event.preventDefault();
+            event.returnValue = '';
+            navigator.sendBeacon('/cleanup_downloads', {});
+        });
+    });
+    
+        document.getElementById('file-upload-form').onsubmit = function (event) {
+    event.preventDefault(); // Prevent the default form submission
+    var formData = new FormData(this); // Create a FormData object from the form
+    var feedbackArea = document.getElementById('feedback-area'); // Feedback area element
+
+    // Show a loading message
+    feedbackArea.innerHTML = 'Processing your documents... Please wait.';
+    feedbackArea.style.display = 'block';
+
+    // Start the fetch request
+    fetch(this.action, {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => {
+            if (!response.ok) {
+                // If the response is not okay (e.g., 400 or 500 error), raise an error
+                throw new Error(`HTTP Error ${response.status}: ${response.statusText}`);
+            }
+            return response.json(); // Parse the JSON response
+        })
+        .then(data => {
+          function formatFilenameFromUrl(url) {
+    // Extract the filename from the URL using regex or simple string methods
+    const fileName = url.substring(url.lastIndexOf('/') + 1);
+    // Optionally, remove any prefixes or timestamps from the filename
+    const start = fileName.indexOf('-') + 1;
+    const end = fileName.lastIndexOf('.');
+    // Replace underscores with spaces and capitalize the text if necessary
+    return fileName.substring(start, end).replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
+            // If the server provides a URL, offer a download link to the user
+            if (Array.isArray(data) && data.length > 0) {
+    // Generate a list of download links with formatted names
+    var links = data.map(url => {
+        // Extract and format the filename
+        const displayName = formatFilenameFromUrl(url);
+        // Return the HTML string for each link
+        return `<li><a href="${url}" download>${displayName}</a></li>`;
+    }).join('');
+    // Display the links
+    feedbackArea.innerHTML = `<h3>Download Processed Documents:</h3><ul>${links}</ul>`;
+} else {
+    // Show a message if no documents were found
+    feedbackArea.textContent = 'No documents found or processing failed.';
+}
+        })
+        .catch(error => {
+            // Show a detailed error message if processing fails
+            console.error('Error:', error);
+            feedbackArea.textContent = `Error: Failed to process files (${error.message})`;
+        });
+};
+
+
+        </script>
+          
+        
+         <br>
+
+          <img src="D:/PROJECt/MAIL MERGE 2/public/Generate.png" alt="" class="hero-lady-img" loading="lazy">
+        </section>
+        
+        <br>
+        <section id="products" class="section section-two container">
+          <div class="s-two-upper-info">
+            <h2 class="s-two-slogan">Seamlessly Merge, Perfectly Deliver: Your Ultimate Document Solution.</h2>
+            <p class="s-two-definition s-definition">
+                Generate customized documents in your desired format—PDF or DOCX (ZIP). Just click 'Merge' and receive perfectly formatted files in seconds.
+      <br>
+    <br>
+                     
+   
+                <div id="how-to-use" class="how-to-use">
+                    <br>
+
+                    <h1 style="font-family:'Times New Roman', Times, serif, Times, serif; color: black;">How to use</h1>
+                    <ul>
+                        <br>
+                        <li>Place field placeholders in double curly quotes in the template docx, such as {{ Example_Field }}.</li>
+                        <li>Organize Excel Data: Confirm that the first row includes column headers that correspond to these placeholders.</li>
+                        <li>Choose Output Format: Select either PDF or DOCX (ZIP) as your preferred format.</li>
+                        <li>Click on merge.</li>
+                    </ul>
+                </div>
+                
+
+        </section>
+        <!-- section four -->
+        <section id="about" class="section section-four container">
+            <div class="oath-container">
+                <h3 class="s-three-title s-four-title">Your Ultimate Document Solution.</h3>
+                <p class="s-three-desc s-definition">Dedicated to delivering efficiency and precision, our tool ensures top-quality merged documents and exceptional service for all stakeholders.</p>
+        
+                <div class="employer-info">
+                    <div class="employer">
+                        <h4 class="name">DocuMerge Pro</h4>
+                    </div>
+                </div>
+            </div>
+        
+        </section>
+        
+
+      <footer id="contact" class="footer container">
+        <h2 class="footer-title">Contact</h2>
+        <form class="contact-form">
+          <div class="name-email-inputs-container">
+            <div class="form-control">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" id="name" class="normal-input all-input">
+            </div>
+            <div class="form-control">
+              <label for="email" class="form-label">Email</label>
+              <input type="text" id="email" class="normal-input all-input">
+            </div>
+          </div>
+
+          <!-- text area -->
+          <div class="form-control">
+            <label for="message" class="form-label">Message</label>
+            <div contenteditable="true" id="message" class="textarea-input all-input"></div>
+          </div>
+          <button type="submit" class="send-msg-btn button ad-buy-btn">SEND</button>
+        </form>
+
+        <div class="other-footer-infos-container">
+          <span class="footer-info"><i class="bx bx-map"></i> Address</span>
+          <span class="footer-info"><i class="bx bx-phone"></i> Contact</span>
+          <span class="footer-info"><i class="bx bx-mail-send"></i>URL</span>
+          <div class="footer-social-links">
+            <ul>
+              <li><i class='bx bxl-instagram-alt nav-icon clr-transition'></i></li>
+              <li><i class='bx bxl-twitter nav-icon clr-transition'></i></li>
+              <li><i class='bx bxl-facebook-square nav-icon clr-transition'></i></li>
+            </ul>
+          </div>
+        </div>
+        <div class="lower-footer">
+          <span class="lower-footer-elt copy">Easy-Merge © 2022 eMerge</span>
+          <span class="lower-footer-elt developer">Developed by <a href="https://www.linkedin.com/in/naman-jain-420180258/" class="developerportfoliolink" title="developer portfolio link">Naman Jain</a></span>
+          <span class="lower-footer-elt policy"><a href="#" class="policy-link">Privacy • Policy</a></span>
+        </div>
+      </footer>
+      <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+      <script src="script.js"></script>
+    </body>
+</html>

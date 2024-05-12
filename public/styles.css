@@ -1,0 +1,822 @@
+    @import url('https://fonts.googleapis.com/css2?family=Pompiere&display=swap');
+
+    *,
+    *::before,
+    *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+
+    /* Adjust the `.container` class */
+    .container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 2rem; /* Adjust the padding as needed */
+    padding-right: 2rem; /* Adjust the padding as needed */
+    max-width: 1200px; /* Limit the container width */
+    }
+
+    /* ========= VARIABLES ========== */
+    :root {
+    --primary-clr: #6c467a;
+    --primary-clr-alt: #d6c0e3;
+    --second-clr: #026d85;
+    --second-clr-alt: #027c97;
+    --text-clr: #f5fdff;
+    --nav-txt-clr: var(--text-clr);
+    --text-clr-bg: #f5fdff;
+    --bg-clr: #2d4253;
+    --mobile-menu-bg-clr: #3e586d;
+    --sec-two-bg-clr: var(--mobile-menu-bg-clr);
+    --form-bg-clr: #dcf1ff70;
+    --form-focus-bg-clr: #bf93cf73;
+    --gray-clr: #f5f8fa;
+    --product-bg-clr: #364f63;
+    --bx-shadow-clr: #6d477b33;
+    }
+
+    /* ======== White Theme ======== */
+    .lightmode {
+    --primary-clr-alt: #6c467a;
+    --second-clr-alt: #027c97;
+    --form-bg-clr: #a67eb43a;
+    --form-focus-bg-clr: #107a9231;
+    --sec-two-bg-clr: #f5fdff;
+    --text-clr: #2d4253;
+    --nav-txt-clr: var(--second-clr);
+    --bg-clr: #f5fdff;
+    --product-bg-clr: #f5fdff;
+    --bx-shadow-clr: #2d425333;
+    }
+
+    /* ------------ BASE ------------ */
+    body {
+    scroll-behavior: smooth;
+    font-family: "Pompiere", cursive;
+    font-size: 1.2rem;
+    color: var(--text-clr);
+    background-color: var(--bg-clr);
+    transition: background-color 1000ms;
+    }
+
+    ul {
+    list-style: none;
+    }
+    img {
+    height: auto;
+    width: 100%;
+    }
+    .pos-abs-center {
+    position: absolute;
+    }
+    .s-definition {
+    font-size: calc(27 * 0.06rem);
+    max-width: 32rem;
+    letter-spacing: 0.05rem;
+    line-height: 2rem;
+    }
+    /* -- transitions -- */
+    .clr-transition {
+    transition: color 1000ms;
+    }
+    .bg-clr__transition {
+    transition: background-color 1s;
+    }
+    /* ================= */
+    /* -- buttons -- */
+    .button {
+    cursor: pointer;
+    font-size: 1rem;
+    height: 3rem;
+    padding: 0 1rem;
+    border: none;
+    color: var(--text-clr-bg);
+    }
+    .btn-primary {
+    background-color: var(--primary-clr);
+    }
+    .btn-second-alt {
+    background-color: transparent;
+    border: thin solid var(--text-clr);
+    color: var(--text-clr);
+    }
+    /* ================= */
+
+    .container {
+    padding: 1.8rem 3rem;
+    }
+    @media screen and (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    }
+    @media screen and (min-width: 3000px) {
+    .container {
+        padding: 1.8rem 500px;
+    }
+    }
+
+    /* ------------------------- */
+
+    /* -------- HEADER -------- */
+    header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    }
+    .logo {
+    color: var(--nav-txt-clr);
+    font-size: 2.3rem;
+    text-decoration: none;
+    margin-right: 2rem;
+    }
+    .nav-items {
+    display: flex;
+    margin-right: 5rem;
+    }
+    .nav-item {
+    margin-right: 3rem;
+    }
+    .nav-item:last-child {
+    margin-right: 0;
+    }
+    .nav-link {
+    color: var(--nav-txt-clr);
+    text-decoration: none;
+    font-size: 1.7rem;
+    position: relative;
+    }
+    .nav-link::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 0.1rem;
+    background-color: var(--primary-clr-alt);
+    bottom: 0;
+    transform: scaleX(0);
+    transition: 150ms transform;
+    }
+    .nav-link:hover::before {
+    transform: scaleX(1);
+    }
+    .phone-social-links {
+    display: none;
+    }
+    .navbar {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    }
+    @media screen and (max-width: 768px) {
+    .logo {
+        font-size: 3rem;
+    }
+    .theme-toggler {
+        color: var(--text-clr-bg);
+    }
+    .nav-items {
+        flex-direction: column;
+        margin-right: 0;
+        margin-bottom: 2rem;
+    }
+    .nav-item {
+        margin: 0.5rem 0;
+    }
+    .nav-link {
+        color: var(--text-clr-bg);
+        font-size: 2rem;
+    }
+    .navbar {
+        align-items: flex-start;
+        flex-direction: column;
+        background-color: var(--mobile-menu-bg-clr);
+        position: absolute;
+        padding: 0.5rem 5rem 1rem 1rem;
+        border-radius: 0.5rem 0 0 0.5rem;
+        top: 5rem;
+        right: 0;
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform 200ms;
+    }
+    .show-nav {
+        transform: scaleX(1);
+    }
+    }
+    /* ----- ----------- ------ */
+    .social-links {
+    display: flex;
+    align-items: center;
+    }
+    .social-links ul {
+    display: flex;
+    }
+    .social-links ul li {
+    margin-right: 1.5rem;
+    }
+    .social-links ul li:last-child {
+    margin-right: 0;
+    }
+    .nav-icon {
+    cursor: pointer;
+    color: var(--nav-txt-clr);
+    font-size: 1.4rem;
+    }
+    @media screen and (max-width: 768px) {
+    .nav-icon {
+        color: var(--text-clr-bg);
+    }
+    }
+    .line-divider {
+    height: 0.05rem;
+    width: 1rem;
+    background-color: var(--nav-txt-clr);
+    margin: 0 0.5rem;
+    border-radius: 10rem;
+    }
+    .theme-togglers {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    }
+    .theme-toggler {
+    color: var(--nav-txt-clr);
+    font-size: 1.5rem;
+    transition: transform 300ms;
+    }
+    @media screen and (max-width: 768px) {
+    .theme-toggler {
+        color: var(--text-clr-bg);
+    }
+    }
+    .theme-toggler:hover {
+    transform: rotate(60deg);
+    }
+    .bxs-moon {
+    display: none;
+    }
+    .menu-togglers {
+    cursor: pointer;
+    display: none;
+    }
+    .menu-toggle {
+    color: var(--nav-txt-clr);
+    font-size: 3rem;
+    }
+    .bx-menu,
+    .bx-x {
+    pointer-events: none;
+    }
+    .bx-x {
+    display: none;
+    }
+    .show {
+    display: block;
+    }
+    .hide {
+    display: none;
+    }
+    @media screen and (max-width: 768px) {
+    .menu-togglers {
+        display: block;
+    }
+    }
+
+    /* -------- SECTION ONE: Hero section -------- */
+    .section-one {
+    height: 81.5vh;
+    }
+    @media screen and (max-width: 846px) {
+    .section-one {
+        height: 74vh;
+    }
+    }
+    @media screen and (max-width: 845px) {
+    .section-one {
+        height: 68vh;
+    }
+    }
+    @media screen and (max-width: 546px) {
+    .section-one {
+        height: 74vh;
+    }
+    }
+    .hook-container {
+    margin-top: 2rem;
+    }
+    @media screen and (max-width: 348px) {
+    .hook-container {
+        margin-top: 0rem;
+    }
+    }
+    .hook-title {
+    font-size: 4rem;
+    line-height: 117%;
+    max-width: 50rem;
+    color: var(--text-clr);
+    transition: font-size 1000ms;
+    }
+    .hook-sub_title {
+    font-size: 30px;
+    line-height: 157.5%;
+    color: var(--text-clr);
+    }
+    @media screen and (min-width: 414px) {
+    .hook-title {
+        font-size: 92px;
+    }
+    }
+    .hero-btns-container {
+    margin-top: 2rem;
+    opacity: 0;
+    }
+    .in-btn-icon {
+    font-size: 1rem;
+    }
+    .btn-hero {
+    border-radius: 50px;
+    font-size: 0.8rem;
+    transition: box-shadow 300ms;
+    margin-right: 0.1rem;
+    }
+    @media screen and (min-width: 358px) {
+    .btn-hero {
+        margin-right: 2rem;
+        font-size: 0.9rem;
+    }
+    }
+    .btn-hero:last-child {
+    margin-right: 0;
+    }
+    .btn-hero:hover {
+    box-shadow: 5px 5px var(--text-clr);
+    }
+    /* Style for Mail Merge Tool section with blurred background */
+#mail-merge-tool {
+    backdrop-filter: blur(10px); /* Adjust blur level as needed */
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+    border-radius: 8px; /* Optional: rounded corners */
+    padding: 20px;
+    margin-top: 20px; /* Spacing from other content */
+}
+
+/* Ensure text within the Mail Merge Tool section is black */
+#mail-merge-tool, #mail-merge-tool label, #mail-merge-tool select, #mail-merge-tool input[type='file'] {
+    color: #000; /* Black text color */
+}
+
+.file-upload-container input[type="file"] {
+    display: block;
+    width: 100%;
+}
+
+.output-format select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc; /* Add border to select for better visibility */
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+    .hero-lady-img {
+    z-index: 10;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: none;
+    transition: width 1000ms;
+    }
+    @media screen and (min-width: 546px) {
+    .hero-lady-img {
+        display: block;
+        width: 250px;
+    }
+    }
+    @media screen and (min-width: 654px) {
+    .hero-lady-img {
+        width: 320px;
+    }
+    }
+    @media screen and (min-width: 980px) {
+    .hero-lady-img {
+        width: 400px;
+    }
+    }
+    /* Select a section by its class or ID */
+    .section-two {
+        margin-top: 20rem; /* Adjust the spacing above */
+        margin-bottom: 2rem; /* Adjust the spacing below */
+        padding: 1rem; /* Optional padding inside the section */
+        background-color: #f8f9fa; /* Optional background color for visibility */
+    }
+    
+    /* -------- SECTION TWO: Product section -------- */
+    .section-two {
+    background-color: var(--sec-two-bg-clr);
+    }
+    .s-two-upper-info {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    }
+    .s-two-slogan {
+    font-size: 1.5rem;
+    max-width: 15rem;
+    letter-spacing: 0.05rem;
+    line-height: 2rem;
+    }
+    @media screen and (max-width: 846px) {
+    .section-two {
+        margin-top: 20rem;
+    }
+    .s-two-slogan {
+        margin-bottom: 2rem;
+    }
+    }
+
+    @media screen and (min-width: 700px) {
+    .product {
+        width: calc(365 * 0.06rem);
+    }
+    }
+    .product .price {
+    top: 0;
+    left: 0;
+    margin: 1rem;
+    }
+
+
+    /* ----- section three: Ad products section ----- */
+    .section-three {
+    margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    }
+    @media screen and (min-width: 843px) {
+    .section-three {
+        margin-bottom: 0;
+    }
+    }
+    @media screen and (min-width: 1023px) {
+    .section-three {
+        margin-top: 5rem;
+        margin-bottom: 0;
+    }
+    .section-three {
+        align-items: flex-start;
+    }
+    }
+
+    .s-three-upper-img-container img {
+    width: 100%;
+    margin-bottom: 1.3rem;
+    transition: width 1000ms;
+    }
+    @media screen and (min-width: 992px) {
+    .s-three-upper-img-container img {
+        margin-bottom: 0;
+        margin-right: 2rem;
+    }
+    }
+    @media screen and (min-width: 515px) {
+    .s-three-upper-img-container img {
+        width: calc(400 * 0.06rem);
+    }
+    }
+    .s-three-lower-container {
+    display: flex;
+    flex-direction: column;
+    }
+    .s-three-title {
+    font-size: 2.5rem;
+    max-width: 20rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-clr-alt);
+    }
+    .s-three-desc {
+    margin-bottom: 1.5rem;
+    }
+    .s-three-price {
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    }
+    .ad-buy-btn {
+    max-width: calc(147 * 0.06rem);
+    margin-top: 0.8rem;
+    background-color: var(--primary-clr);
+    color: var(--text-clr-bg);
+    transition: box-shadow 300ms;
+    }
+    .ad-buy-btn:hover {
+    box-shadow: 5px 5px var(--text-clr);
+    }
+
+    /* ----- footer section ----- */
+    /* ---- contact form ---- */
+    .contact-form {
+    margin-bottom: 3rem;
+    }
+    .footer-title {
+    color: var(--text-clr);
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    }
+    .form-control {
+    display: flex;
+    flex-direction: column;
+    }
+    .form-label {
+    color: var(--text-clr);
+    font-size: 1.9rem;
+    margin-bottom: 0.5rem;
+    }
+    .all-input {
+    color: var(--text-clr);
+    background-color: var(--form-bg-clr);
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    padding: 0 0.5rem;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    transition: box-shadow 300ms, color 300ms;
+    }
+    .all-input:focus {
+    box-shadow: 0 0 1px 3px var(--form-focus-bg-clr);
+    }
+    .normal-input {
+    height: 2rem;
+    }
+    .textarea-input {
+    padding-top: 1rem;
+    height: 30px;
+    }
+    .send-msg-btn {
+    width: 80%;
+    height: 3.5rem;
+    font-size: 1.2rem;
+    }
+    @media screen and (min-width: 1024px) {
+    .name-email-inputs-container {
+        display: flex;
+    }
+    .form-control {
+        margin-right: 3rem;
+    }
+    .form-label {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+    }
+    .all-input {
+        font-size: 1.3rem;
+    }
+    .normal-input {
+        width: 400px;
+    }
+    .textarea-input {
+        width: 850px;
+    }
+    .send-msg-btn {
+        height: 3.2rem;
+        font-size: 1.1rem;
+    }
+    }
+    @media screen and (min-width: 1280px) {
+    .form-label {
+        font-size: 1.7rem;
+        margin-bottom: 0.5rem;
+    }
+    .all-input {
+        font-size: 1.2rem;
+    }
+    .normal-input {
+        height: 3.4rem;
+    }
+    .textarea-input {
+        width: 850px;
+    }
+    }
+    /* ---------------------- */
+
+    .other-footer-infos-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+    }
+    .footer-info {
+    color: var(--text-clr);
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+    margin-right: 0.8rem;
+    margin-bottom: 0.5rem;
+    }
+    .footer-info i {
+    margin-right: 0.5rem;
+    font-size: 1.4rem;
+    color: var(--text-clr);
+    }
+    .footer-social-links {
+    margin-top: 2rem;
+    }
+    @media screen and (min-width: 368px) {
+    .footer-social-links {
+        margin-top: 0;
+    }
+    }
+    .footer-social-links ul {
+    display: flex;
+    }
+    .footer-social-links ul .bx {
+    color: var(--text-clr);
+    margin-right: 1rem;
+    font-size: 1.7rem;
+    opacity: 0.8;
+    transition: opacity 300ms;
+    }
+    .footer-social-links ul .bx:hover {
+    opacity: 1;
+    }
+    @media screen and (min-width: 1080px) {
+    .footer-info {
+        font-size: 1.2rem;
+    }
+    .footer-info i {
+        font-size: 1.4rem;
+    }
+    .footer-social-links ul .bx {
+        font-size: 1.4rem;
+    }
+    }
+
+    /* ---- lower footer ---- */
+    .lower-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    padding-top: 1rem;
+    }
+    @media screen and (min-width: 449px) {
+    .lower-footer {
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    }
+    .lower-footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    height: 0.08rem;
+    width: 100%;
+    opacity: 0.2;
+    background-color: var(--primary-clr-alt);
+    }
+    .lower-footer-elt {
+    margin-bottom: 1rem;
+    }
+    @media screen and (min-width: 449px) {
+    .lower-footer-elt {
+        margin-bottom: 0;
+    }
+    }
+    .developer {
+    margin-right: 1rem;
+    }
+    .copy,
+    .developer,
+    .policy {
+    color: var(--text-clr);
+    font-size: 1.2rem;
+    }
+    .developer a,
+    .policy a {
+    color: var(--primary-clr-alt);
+    }
+
+    @media screen and (min-width: 1024px) {
+    .developer,
+    .policy {
+        font-size: 1.1rem;
+    }
+    }
+    /* Section: How to Use Styles */
+    .how-to-use {
+        padding: 20px;
+        background-color: var(--sec-two-bg-clr); /* A lighter background for contrast */
+        border-radius: 8px; /* Rounded corners for better visuals */
+        margin-top: 20px;
+    }
+
+    .how-to-use ul {
+        padding-left: 20px; /* Proper alignment for the list */
+    }
+
+    .how-to-use li {
+        margin-bottom: 10px; /* Space between list items */
+        font-size: 1.1rem; /* Slightly larger font size for readability */
+        color: var(--text-clr); /* Ensuring text color is set for visibility */
+        list-style-type: circle; /* Stylistic choice for list items */
+    }
+
+    /* Enhancing readability and focus */
+    .how-to-use li:hover {
+        background-color: var(--form-focus-bg-clr);
+        cursor: pointer; /* Indicates an interactive element */
+        border-radius: 5px; /* Smoothed corners on hover */
+        padding: 5px;
+    }
+#mail-merge-tool {
+    background-color: #f4f4f44f;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.file-upload-container {
+    margin-bottom: 15px;
+}
+
+.file-upload-container input[type="file"] {
+    display: block;
+    width: 100%;
+}
+
+.output-format {
+    margin-bottom: 15px;
+}
+
+.output-format select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #0056b3;
+}
+/* General styling for file upload containers */
+.file-upload-container {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f9f9f962; /* Light gray background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+}
+
+/* Styling for labels */
+.file-upload-container label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333; /* Darker text for better readability */
+}
+
+/* Custom style for file inputs */
+input[type="file"] {
+    width: 100%; /* Full width to fill container */
+    padding: 8px; /* Padding for better touch interaction */
+    border: 2px solid #ddd; /* Subtle border */
+    border-radius: 4px; /* Match rounded corners */
+    background-color: z#fff; /* White background */
+    cursor: pointer; /* Cursor indicates clickable area */
+}
+
+/* Hover effect for file inputs */
+input[type="file"]:hover {
+    border-color: #aaa; /* Darken border on hover for feedback */
+}
+
+/* Focus effect for better accessibility */
+input[type="file"]:focus {
+    outline: none; /* Remove default focus outline */
+    border-color: #0056b3; /* Use a stronger color for focus */
+    box-shadow: 0 0 0 3px rgba(0,86,179,0.5); /* Glowing effect for visibility */
+}
+
+/* Background video styles */
